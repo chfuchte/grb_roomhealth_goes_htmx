@@ -6,6 +6,7 @@ air:
 	air -c .air.toml
 
 build:
+	$(MAKE) tailwind
 	go build -o $(BINARY_NAME) cmd/main.go
 
 fmt:
