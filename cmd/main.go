@@ -3,8 +3,8 @@ package main
 import (
 	"io"
 
-	"net/http"
 	"html/template"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -14,7 +14,7 @@ import (
 
 // Template struct for rendering HTML templates
 type Template struct {
-    templates *template.Template
+	templates *template.Template
 }
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
@@ -43,7 +43,7 @@ func main() {
 				zap.String("URI", v.URI),
 				zap.Int("status", v.Status),
 			)
-		return nil
+			return nil
 		},
 	}))
 
