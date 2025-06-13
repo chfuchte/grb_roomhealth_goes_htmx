@@ -1,3 +1,9 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 @source "../../templates";
-@source "../css/";
+@source "../css";
+@source "../js";
+@source not "../js/htmx.min.js";
+
+body {
+    @apply bg-amber-600;
+}

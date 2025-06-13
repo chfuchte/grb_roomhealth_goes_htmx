@@ -4,7 +4,9 @@
 		"tw:watch": "tailwindcss -i ./static/css/_tailwind_input.css -o ./static/css/tailwind_generated.css --watch"
 	},
 	"dependencies": {
-		"tailwindcss": "^4.1.10",
-		"@tailwindcss/cli": "^4.1.10"
+		"@tailwindcss/cli": "^4.1.10",
+		"prettier": "^3.5.3",
+		"prettier-plugin-tailwindcss": "^0.6.12",
+		"tailwindcss": "^4.1.10"
 	}
 }
