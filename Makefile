@@ -1,6 +1,6 @@
 BINARY_NAME=bin/server
 
-.PHONY: all air build tailwind fmt fixdeps run tailwind_watch
+.PHONY: air build tailwind fmt download tidy run tailwind_watch build-all
 
 # development
 air:
@@ -10,19 +10,24 @@ tailwind_watch:
 	npx @tailwindcss/cli -i ./static/css/_tailwind_input.css -o ./static/css/tailwind_generated.css --watch &
 
 # build
-build:
+build-all:
 	$(MAKE) tailwind
-	go build -o $(BINARY_NAME) cmd/main.go
+	$(MAKE) build-only
+
+build:
+	go build -o $(BINARY_NAME) cmd/main.go -tags=build_only
 
 tailwind:
 	npx @tailwindcss/cli -i ./static/css/_tailwind_input.css -o ./static/css/tailwind_generated.css --minify
 
-# format and fix dependencies
+# utils
 fmt:
 	go fmt ./...
 
-fixdeps:
+download:
 	go mod download
+
+tidy:
 	go mod tidy
 
 run: 

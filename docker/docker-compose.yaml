@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    server:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        container_name: rh_server
+        depends_on:
+            - mariadb
+        environment:
+            MARIADB_PORT: 3306
+            MARIADB_USER: rh
+            MARIADB_PASSWORD: rh_pwd
+            MARIADB_DATABASE: rh
+
+    mariadb:
+        image: mariadb:latest
+        container_name: rh_mariadb
+        environment:
+            MARIADB_ROOT_PASSWORD: root_pwd
+            MARIADB_USER: rh
+            MARIADB_PASSWORD: rh_pwd
+            MARIADB_DATABASE: rh
+        ports:
+            - "3306:3306"
+        volumes:
+            - mariadb_data:/var/lib/mysql
+
+volumes:
+    mariadb_data:
+        driver: local
