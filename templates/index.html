@@ -1,16 +1,12 @@
 {{ define "page:index" }}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        {{ template "html:head" . }}
+    </head>
 
-<head>
-    {{ template "html:head" . }}
-</head>
-
-<body>
-    <main>
-        Hello World
-    </main>
-</body>
-
+    <body>
+        <main>Hello World</main>
+    </body>
 </html>
 {{end}}
