@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"chfuchte.de/grb_roomhealth_goes_htmx/internal/logger"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
