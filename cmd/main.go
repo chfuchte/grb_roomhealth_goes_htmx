@@ -12,6 +12,14 @@ import (
 	"go.uber.org/zap"
 )
 
+type Head struct {
+	Title string
+}
+
+type TemplateData struct {
+	Head Head
+}
+
 type Template struct {
 	templates *template.Template
 }
@@ -67,9 +75,21 @@ func main() {
 	// serve static files from the "static" directory
 	e.Static("/static", "static")
 
+	e.GET("/", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "page:index", TemplateData{
+			Head: Head{
+				Title: "Welcome",
+			},
+		})
+	})
+
 	// catch-all route to return a ui for unmatched routes
 	e.GET("/*", func(c echo.Context) error {
-		return c.Render(http.StatusNotFound, "NOT_FOUND", nil)
+		return c.Render(http.StatusNotFound, "page:NOT_FOUND", TemplateData{
+			Head: Head{
+				Title: "Not Found",
+			},
+		})
 	})
 
 	e.Logger.Fatal(e.Start(":8080"))

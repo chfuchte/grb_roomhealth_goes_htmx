@@ -1,0 +1,25 @@
+{{ define "html:head" }}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<base href="/">
+<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+
+<title>Roomhealth // {{ .Head.Title }}</title>
+<meta name="description"
+    content="Track and report IT issues at Gymnasium Riedberg. Designed to help teachers report hardware problems in classrooms and ensure fast, hassle-free resolution.">
+<meta name="keywords" content="Gymnasium Riedberg, GRB, IT issue tracker, school IT support, roomhealth">
+
+<meta property="og:url" content="https://rh.grb.wiki/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Roomhealth | {{ .Head.Title }}">
+<meta property="og:site_name" content="Roomhealth Gymnasium Riedberg">
+<meta property="og:description"
+    content="Track and report IT issues at Gymnasium Riedberg. Designed to help teachers report hardware problems in classrooms and ensure fast, hassle-free resolution.">
+<meta property="og:image" content="https://rh.grb.wiki/static/og_image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<link rel="stylesheet" href="/static/css/tailwind_generated.css">
+<script src="/static/js/htmx.min.js"></script>
+{{ end }}

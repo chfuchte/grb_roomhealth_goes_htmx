@@ -4,6 +4,55 @@
 @source "../js";
 @source not "../js/htmx.min.js";
 
+@theme {
+    --color-mauve-50: oklch(95.017% 0.02262 305.448);
+    --color-mauve-100: oklch(91.053% 0.05085 308.374);
+    --color-mauve-200: oklch(85.062% 0.06849 306.146);
+    --color-mauve-300: oklch(81.715% 0.10294 295.334);
+    --color-mauve-400: oklch(76.017% 0.09736 306.654);
+    --color-mauve-500: oklch(71.833% 0.12493 300.615);
+    --color-mauve-600: oklch(67.187% 0.15038 299.527);
+    --color-mauve-700: oklch(64.551% 0.16384 299.235);
+    --color-mauve-800: oklch(61.803% 0.17844 299.028);
+    --color-mauve-900: oklch(39.349% 0.14773 299.218);
+    --color-mauve-950: oklch(18.783% 0.05412 301.953);
+
+    --color-periwinkle-50: oklch(95.017% 0.02262 305.448);
+    --color-periwinkle-100: oklch(91.67% 0.04101 281.011);
+    --color-periwinkle-200: oklch(85.776% 0.06969 266.089);
+    --color-periwinkle-300: oklch(82.385% 0.08911 278.636);
+    --color-periwinkle-400: oklch(77.389% 0.11513 273.621);
+    --color-periwinkle-500: oklch(73.413% 0.13726 272.54);
+    --color-periwinkle-600: oklch(67.229% 0.17283 270.23);
+    --color-periwinkle-700: oklch(62.177% 0.20328 269.578);
+    --color-periwinkle-800: oklch(53.789% 0.21493 270.073);
+    --color-periwinkle-900: oklch(42.272% 0.18047 270.554);
+    --color-periwinkle-950: oklch(30.859% 0.13618 270.352);
+}
+
+html {
+    color-scheme: light dark;
+    @apply accent-periwinkle-500;
+    @apply dark:text-mauve-50 text-neutral-900;
+    @apply from-periwinkle-600 to-mauve-500 dark:from-periwinkle-950 dark:to-mauve-900 bg-gradient-to-r;
+}
+
 body {
-    @apply bg-amber-600;
+    @apply min-h-dvh;
+}
+
+main {
+    @apply border-periwinkle-400/50 relative mx-auto my-0 min-h-dvh w-full overflow-hidden p-4;
+}
+
+@media screen and (min-width: 1136px) {
+    main {
+        @apply border-x-2;
+        max-width: 71rem;
+    }
+}
+@media screen and (min-width: 1953px) {
+    main {
+        max-width: 84rem;
+    }
 }
