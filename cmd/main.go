@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	"database/sql"
 	"html/template"
 	"io"
 	"net/http"
@@ -38,6 +40,22 @@ func main() {
 	// set up the logger
 	logger := logger.CreateLogger()
 	defer logger.Sync()
+
+	// set up the database connection
+	dbCtx := context.Background()
+	dbCon, err := sql.Open("mysql", "rh:rh_pwd@/rh?parseTime=true")
+	if err != nil {
+		logger.Fatal("failed to connect to database", zap.Error(err))
+	}
+	defer func() {
+		if err := dbCon.Close(); err != nil {
+			logger.Error("failed to close database connection", zap.Error(err))
+		}
+	}()
+	if err := dbCon.PingContext(dbCtx); err != nil {
+		logger.Fatal("failed to ping database", zap.Error(err))
+	}
+	// db := database.New(dbCon)
 
 	// set up echo instance
 	e := echo.New()
