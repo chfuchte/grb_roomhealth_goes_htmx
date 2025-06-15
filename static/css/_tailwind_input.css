@@ -28,6 +28,23 @@
     --color-periwinkle-800: oklch(53.789% 0.21493 270.073);
     --color-periwinkle-900: oklch(42.272% 0.18047 270.554);
     --color-periwinkle-950: oklch(30.859% 0.13618 270.352);
+
+    --color-header-light: oklch(73.111% 0.13221 277.364);
+    --color-header-dark: oklch(56.737% 0.12501 280.583);
+
+    --spacing-header-height: 4rem;
+}
+
+:root {
+    --main-max-width: 100%;
+
+    @media screen and (min-width: 1136px) {
+        --main-max-width: 71rem;
+    }
+
+    @media screen and (min-width: 1953px) {
+        --main-max-width: 84rem;
+    }
 }
 
 html {
@@ -42,17 +59,22 @@ body {
 }
 
 main {
-    @apply border-periwinkle-400/50 relative mx-auto my-0 min-h-dvh w-full overflow-hidden p-4;
+    @apply border-header-light dark:border-header-dark mx-auto my-0 w-full overflow-hidden;
+    @media screen and (min-width: 1136px) {
+        @apply border-x-2;
+    }
+
+    min-height: calc(100dvh - var(--spacing-header-height));
+    max-width: var(--main-max-width);
 }
 
-@media screen and (min-width: 1136px) {
-    main {
-        @apply border-x-2;
-        max-width: 71rem;
-    }
+header {
+    max-width: var(--main-max-width);
+    width: var(--main-max-width);
 }
-@media screen and (min-width: 1953px) {
-    main {
-        max-width: 84rem;
+
+#profile_menu:popover-open {
+    @media screen and (min-width: 1136px) {
+        left: calc(100dvw - 10rem - ((100dvw - var(--main-max-width)) / 2));
     }
 }

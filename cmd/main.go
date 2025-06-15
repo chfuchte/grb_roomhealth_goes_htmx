@@ -33,7 +33,7 @@ func (t *Template) Render(w io.Writer, name string, data any, c echo.Context) er
 
 func createTemplates() *Template {
 	return &Template{
-		templates: template.Must(template.ParseGlob("templates/*.html")),
+		templates: template.Must(template.ParseGlob("templates/**/*.html")),
 	}
 }
 
@@ -104,7 +104,7 @@ func main() {
 	e.Static("/static", "static")
 
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "page:index", TemplateData{
+		return c.Render(http.StatusOK, "page:index:public", TemplateData{
 			Head: Head{
 				Title: "Welcome",
 			},

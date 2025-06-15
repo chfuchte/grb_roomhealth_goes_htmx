@@ -1,0 +1,41 @@
+{{ define "page:index" }}
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{ template "html:head" . }}
+</head>
+
+<body>
+    {{ template "html:header:user" . }}
+
+    <main>
+
+    </main>
+
+    {{ template "html:footer" . }}
+</body>
+
+</html>
+{{end}}
+
+{{ define "page:index:public" }}
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{ template "html:head" . }}
+</head>
+
+<body>
+    {{ template "html:header:nouser" . }}
+
+    <main>
+
+    </main>
+
+    {{ template "html:footer" . }}
+</body>
+
+</html>
+{{end}}
