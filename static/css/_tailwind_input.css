@@ -33,6 +33,8 @@
     --color-header-dark: oklch(56.737% 0.12501 280.583);
 
     --spacing-header-height: 4rem;
+
+    --default-font-family: "Inter", "Open Sans", sans-serif;
 }
 
 :root {
@@ -44,6 +46,10 @@
 
     @media screen and (min-width: 1953px) {
         --main-max-width: 84rem;
+    }
+
+    @theme {
+        --spacing-main-max-width: var(--main-max-width);
     }
 }
 

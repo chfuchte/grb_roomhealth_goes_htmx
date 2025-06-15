@@ -1,0 +1,39 @@
+{{ define "page:login" }}
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{ template "html:head" . }}
+</head>
+
+<body>
+    <form method="post" action="/login" class="dark:text-mauve-50 max-w-96 w-11/12 text-mauve-950 border-mauve-300 fixed top-1/2 left-1/2 -translate-x-1/2
+        -translate-y-1/2 transform rounded-2xl border-2 bg-white/10 p-8 backdrop-blur-xl grid grid-cols-1 gap-2">
+        <h1 class="text-3xl font-bold">Login</h1>
+
+        <div class="grid grid-cols-1 gap-1 w-full">
+            <label for="username">Username</label>
+            <input type="name" name="username" id="username" placeholder="john.doe"
+                class="bg-mauve-200/10 user-invalid:border-red-500 border-mauve-300 hover:bg-mauve-200/50 dark:hover:bg-mauve-200/20 ease focus-visible::ring-mauve-300 inline-block w-full rounded-lg border-2 px-4 py-2 transition-colors duration-500 focus:outline-none focus-visible:ring-2 motion-reduce:transition-none"
+                required>
+        </div>
+
+        <div class="grid grid-cols-1 gap-1 w-full">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Pupsbarchensonderzeichen"
+                class="bg-mauve-200/10 border-mauve-300 user-invalid:border-red-500 hover:bg-mauve-200/50 dark:hover:bg-mauve-200/20 ease focus-visible::ring-mauve-300 inline-block w-full rounded-lg border-2 px-4 py-2 transition-colors duration-500 focus:outline-none focus-visible:ring-2 motion-reduce:transition-none"
+                required>
+        </div>
+
+        <button type="submit"
+            class="bg-mauve-200/10 border-mauve-300 hover:bg-mauve-200/50 dark:hover:bg-mauve-200/20 ease focus-visible::ring-mauve-300 mt-4 inline-block w-full rounded-lg border-2 px-4 py-2 pb-2.5 text-center font-semibold transition-colors duration-500 focus:outline-none focus-visible:ring-2 motion-reduce:transition-none">
+            Sign In
+        </button>
+        </div>
+    </form>
+
+    {{ template "html:footer:nomain" . }}
+</body>
+
+</html>
+{{end}}

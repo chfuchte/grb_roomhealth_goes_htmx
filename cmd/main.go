@@ -54,7 +54,7 @@ func main() {
 	defer logger.Sync()
 
 	// set up the database connection
-	dbCtx := context.Background()
+	/* dbCtx := context.Background()
 	dbCon, err := createDatabaseConnection(dbCtx)
 	if err != nil {
 		logger.Fatal("failed to connect to database", zap.Error(err))
@@ -63,8 +63,7 @@ func main() {
 		if err := dbCon.Close(); err != nil {
 			logger.Error("failed to close database connection", zap.Error(err))
 		}
-	}()
-
+	}() */
 	// db := database.New(dbCon)
 
 	// set up echo instance
@@ -82,7 +81,6 @@ func main() {
 			return nil
 		},
 	}))
-	e.Use(middleware.CSRF())                                                 // CSRF protection
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{ // log requests nicely
 		LogMethod: true,
 		LogURI:    true,
@@ -111,6 +109,14 @@ func main() {
 		})
 	})
 
+	e.GET("/login", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "page:login", TemplateData{
+			Head: Head{
+				Title: "Login",
+			},
+		})
+	})
+
 	// catch-all route to return a ui for unmatched routes
 	e.GET("/*", func(c echo.Context) error {
 		return c.Render(http.StatusNotFound, "page:NOT_FOUND", TemplateData{
@@ -126,10 +132,12 @@ func main() {
 func httpErrorHandler(logger *zap.Logger) echo.HTTPErrorHandler {
 	return func(err error, c echo.Context) {
 		code := http.StatusInternalServerError
+		message := "Internal Server Error"
 		if he, ok := err.(*echo.HTTPError); ok {
 			code = he.Code
+			message = he.Message.(string)
 		}
 		logger.Error("http_error", zap.Error(err), zap.Int("status", code))
-		c.String(code, "Internal Server Error")
+		c.String(code, message)
 	}
 }

@@ -8,14 +8,16 @@
 
 <body>
     <div
-        class="dark:text-mauve-50 text-mauve-950 border-mauve-300 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-2xl border-2 bg-white/10 p-8 backdrop-blur-xl">
+        class="dark:text-mauve-50 text-mauve-950 max-w-96 w-11/12 border-mauve-300 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-2xl border-2 bg-white/10 p-8 backdrop-blur-xl">
         <h1 class="text-3xl font-bold">404 - Not Found</h1>
         <p>The page you are looking for does not exist.</p>
         <a href="/"
-            class="bg-mauve-200/10 border-mauve-300 hover:bg-mauve-200/50 dark:hover:bg-mauve-200/20 ease focus-visible::ring-mauve-200 mt-4 inline-block w-full rounded-lg border-2 px-4 py-2 pb-2.5 text-center font-semibold transition-colors duration-500 focus:outline-none focus-visible:ring-2 motion-reduce:transition-none">
+            class="bg-mauve-200/10 border-mauve-300 hover:bg-mauve-200/50 dark:hover:bg-mauve-200/20 ease focus-visible::ring-mauve-300 mt-4 inline-block w-full rounded-lg border-2 px-4 py-2 pb-2.5 text-center font-semibold transition-colors duration-500 focus:outline-none focus-visible:ring-2 motion-reduce:transition-none">
             Back to home
         </a>
     </div>
+
+    {{ template "html:footer:nomain" . }}
 </body>
 
 </html>
