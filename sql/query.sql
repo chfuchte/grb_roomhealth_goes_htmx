@@ -1,28 +1,16 @@
--- name: GetAuthor :one
-SELECT
-    *
-FROM
-    authors
-WHERE
-    id = ?
-LIMIT
-    1;
-
--- name: ListAuthors :many
-SELECT
-    *
-FROM
-    authors
-ORDER BY
-    name;
-
--- name: CreateAuthor :execresult
+-- name: CreateUser :execresult
 INSERT INTO
-    authors (name, bio)
+    `users` (
+        `username`,
+        `first_name`,
+        `last_name`,
+        `password`,
+        `email`
+    )
 VALUES
-    (?, ?);
+    (?, ?, ?, ?, ?);
 
--- name: DeleteAuthor :exec
-DELETE FROM authors
+-- name: DeleteUserById :exec
+DELETE FROM `users`
 WHERE
-    id = ?;
+    `id` = ?;

@@ -37,6 +37,17 @@ func createTemplates() *Template {
 	}
 }
 
+func createDatabaseConnection(ctx context.Context) (*sql.DB, error) {
+	dbCon, err := sql.Open("mysql", "rh:rh_pwd@/rh?parseTime=true&multiStatements=true")
+	if err != nil {
+		return nil, err
+	}
+	if err := dbCon.PingContext(ctx); err != nil {
+		return nil, err
+	}
+	return dbCon, nil
+}
+
 func main() {
 	// set up the logger
 	logger := logger.CreateLogger()
@@ -44,7 +55,7 @@ func main() {
 
 	// set up the database connection
 	dbCtx := context.Background()
-	dbCon, err := sql.Open("mysql", "rh:rh_pwd@/rh?parseTime=true")
+	dbCon, err := createDatabaseConnection(dbCtx)
 	if err != nil {
 		logger.Fatal("failed to connect to database", zap.Error(err))
 	}
@@ -53,9 +64,7 @@ func main() {
 			logger.Error("failed to close database connection", zap.Error(err))
 		}
 	}()
-	if err := dbCon.PingContext(dbCtx); err != nil {
-		logger.Fatal("failed to ping database", zap.Error(err))
-	}
+
 	// db := database.New(dbCon)
 
 	// set up echo instance

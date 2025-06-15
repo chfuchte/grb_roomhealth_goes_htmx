@@ -1,6 +1,4 @@
 # a docker compose without the go server it self and just the dependencies like database are run
-version: "3.8"
-
 services:
     mariadb:
         image: mariadb:latest
