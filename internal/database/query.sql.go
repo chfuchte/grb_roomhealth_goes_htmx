@@ -10,69 +10,44 @@ import (
 	"database/sql"
 )
 
-const createAuthor = `-- name: CreateAuthor :execresult
-INSERT INTO authors (
-  name, bio
-) VALUES (
-  ?, ?
-)
+const createUser = `-- name: CreateUser :execresult
+INSERT INTO
+    ` + "`" + `users` + "`" + ` (
+        ` + "`" + `username` + "`" + `,
+        ` + "`" + `first_name` + "`" + `,
+        ` + "`" + `last_name` + "`" + `,
+        ` + "`" + `password_hash` + "`" + `,
+        ` + "`" + `email` + "`" + `
+    )
+VALUES
+    (?, ?, ?, ?, ?)
 `
 
-type CreateAuthorParams struct {
-	Name string
-	Bio  sql.NullString
+type CreateUserParams struct {
+	Username     string
+	FirstName    string
+	LastName     string
+	PasswordHash string
+	Email        sql.NullString
 }
 
-func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (sql.Result, error) {
-	return q.db.ExecContext(ctx, createAuthor, arg.Name, arg.Bio)
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createUser,
+		arg.Username,
+		arg.FirstName,
+		arg.LastName,
+		arg.PasswordHash,
+		arg.Email,
+	)
 }
 
-const deleteAuthor = `-- name: DeleteAuthor :exec
-DELETE FROM authors
-WHERE id = ?
+const deleteUserById = `-- name: DeleteUserById :exec
+DELETE FROM ` + "`" + `users` + "`" + `
+WHERE
+    ` + "`" + `id` + "`" + ` = ?
 `
 
-func (q *Queries) DeleteAuthor(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteAuthor, id)
+func (q *Queries) DeleteUserById(ctx context.Context, id uint32) error {
+	_, err := q.db.ExecContext(ctx, deleteUserById, id)
 	return err
-}
-
-const getAuthor = `-- name: GetAuthor :one
-SELECT id, name, bio FROM authors
-WHERE id = ? LIMIT 1
-`
-
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
-	row := q.db.QueryRowContext(ctx, getAuthor, id)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
-	return i, err
-}
-
-const listAuthors = `-- name: ListAuthors :many
-SELECT id, name, bio FROM authors
-ORDER BY name
-`
-
-func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
-	rows, err := q.db.QueryContext(ctx, listAuthors)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Author
-	for rows.Next() {
-		var i Author
-		if err := rows.Scan(&i.ID, &i.Name, &i.Bio); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
 }

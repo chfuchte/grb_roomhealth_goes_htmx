@@ -4,7 +4,7 @@ INSERT INTO
         `username`,
         `first_name`,
         `last_name`,
-        `password`,
+        `password_hash`,
         `email`
     )
 VALUES

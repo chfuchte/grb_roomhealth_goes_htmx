@@ -6,10 +6,150 @@ package database
 
 import (
 	"database/sql"
+	"database/sql/driver"
+	"fmt"
+	"time"
 )
 
-type Author struct {
-	ID   int64
+type DevicesStatus string
+
+const (
+	DevicesStatusOK        DevicesStatus = "OK"
+	DevicesStatusLIMITED   DevicesStatus = "LIMITED"
+	DevicesStatusCORRUPTED DevicesStatus = "CORRUPTED"
+	DevicesStatusDEFECT    DevicesStatus = "DEFECT"
+)
+
+func (e *DevicesStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = DevicesStatus(s)
+	case string:
+		*e = DevicesStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for DevicesStatus: %T", src)
+	}
+	return nil
+}
+
+type NullDevicesStatus struct {
+	DevicesStatus DevicesStatus
+	Valid         bool // Valid is true if DevicesStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullDevicesStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.DevicesStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.DevicesStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullDevicesStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.DevicesStatus), nil
+}
+
+type RoomsSection string
+
+const (
+	RoomsSectionA   RoomsSection = "A"
+	RoomsSectionB   RoomsSection = "B"
+	RoomsSectionC   RoomsSection = "C"
+	RoomsSectionD   RoomsSection = "D"
+	RoomsSectionE   RoomsSection = "E"
+	RoomsSectionF   RoomsSection = "F"
+	RoomsSectionSPH RoomsSection = "SPH"
+)
+
+func (e *RoomsSection) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = RoomsSection(s)
+	case string:
+		*e = RoomsSection(s)
+	default:
+		return fmt.Errorf("unsupported scan type for RoomsSection: %T", src)
+	}
+	return nil
+}
+
+type NullRoomsSection struct {
+	RoomsSection RoomsSection
+	Valid        bool // Valid is true if RoomsSection is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullRoomsSection) Scan(value interface{}) error {
+	if value == nil {
+		ns.RoomsSection, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.RoomsSection.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullRoomsSection) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.RoomsSection), nil
+}
+
+type Device struct {
+	ID           uint32
+	Name         string
+	Notes        sql.NullString
+	DeviceTypeID uint8
+	Status       DevicesStatus
+	RoomID       uint32
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+}
+
+type DeviceType struct {
+	ID   uint8
 	Name string
-	Bio  sql.NullString
+}
+
+type Permission struct {
+	ID          uint8
+	Name        string
+	Description string
+}
+
+type Room struct {
+	ID          uint32
+	Roomnr      string
+	Section     RoomsSection
+	Floor       int8
+	Description string
+}
+
+type Session struct {
+	ID        uint64
+	Token     string
+	UserID    uint32
+	CreatedAt time.Time
+}
+
+type User struct {
+	ID           uint32
+	Username     string
+	Email        sql.NullString
+	FirstName    string
+	LastName     string
+	PasswordHash string
+	CreatedAt    time.Time
+}
+
+type UserPermission struct {
+	UserID       uint32
+	PermissionID uint8
 }

@@ -17,7 +17,7 @@ CREATE TABLE
         `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
         `token` VARCHAR(255) NOT NULL UNIQUE,
         `user_id` INT UNSIGNED NOT NULL,
-        `expires_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() + INTERVAL 1 DAY,
+        `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         PRIMARY KEY (`id`),
         FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
     );
@@ -59,6 +59,7 @@ CREATE TABLE
     );
 
 CREATE INDEX `idx_rooms_section_floor` ON `rooms` (`section`, `floor`);
+
 CREATE INDEX `idx_rooms_roomnr` ON `rooms` (`roomnr`);
 
 CREATE TABLE
