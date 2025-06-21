@@ -84,3 +84,11 @@ header {
         left: calc(100dvw - 10rem - ((100dvw - var(--main-max-width)) / 2));
     }
 }
+
+body:not(:has(main)) > footer {
+    @apply p-4 fixed bottom-0 left-0 -z-10;
+}
+
+main + footer {
+    @apply p-4 mx-auto w-main-max-width min-[1136px]:border-x-2 border-header-light dark:border-header-dark;
+}
